@@ -1,0 +1,22 @@
+[Unit]
+Description=aranet4-exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=exec
+EnvironmentFile=/etc/default/aranet4-exporter
+ExecCondition=/usr/bin/test ! -z "${DEVICES}"
+ExecStart=/usr/bin/aranet4-exporter -listen $LISTEN $DEVICES $FLAGS
+Restart=on-failure
+RestartSec=1
+RestartPreventExitStatus=2
+RuntimeDirectory=aranet4-exporter
+RuntimeDirectoryMode=0755
+StateDirectory=aranet4-exporter
+StateDirectoryMode=0700
+CacheDirectory=aranet4-exporter
+CacheDirectoryMode=0750
+
+[Install]
+WantedBy=multi-user.target

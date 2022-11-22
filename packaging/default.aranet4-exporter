@@ -1,0 +1,19 @@
+# LISTEN specifies the address to listen for Prometheus metric requests on.
+# Examples:
+#  :9100
+#  0.0.0.0:9963
+#  192.168.17.123:9963
+LISTEN=:9963
+
+# The list of devices to listen on.
+#
+# Example:
+#   DEVICES="-device D8:9B:67:BB:5A:6B"
+#   DEVICES="-device D8:9B:67:BB:5A:6B=basement"
+#   DEVICES="-device D8:9B:67:BB:5A:6B=basement -device D8:9B:67:BB:5A:7B"
+#   DEVICES="-device D8:9B:67:BB:5A:6B=basement -device D8:9B:67:BB:5A:7B=garage"
+DEVICES=""
+
+# Extra flags to pass to aranet4-exporter. Examples:
+# (e.g. -homekit).
+FLAGS=""

@@ -1,0 +1,13 @@
+# built executable
+aranet4-exporter
+
+# default directory for homekit db
+db/
+
+.idea/
+.idea_modules/
+*.iml
+*.iws
+out/
+dist/
+nocommit*

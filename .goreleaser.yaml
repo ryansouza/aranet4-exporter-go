@@ -1,0 +1,65 @@
+project_name: aranet4-exporter
+## Uncomment if/when `go mod tidy` doesn't break.
+#before:
+#  hooks:
+#    - go mod tidy
+#    - go generate ./...
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+      - arm
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+nfpms:
+  - vendor: ryry
+    description: Aranet4 compatible Prometheus exporter and HomeKit bridge.
+    maintainer: ryry
+    formats:
+      - deb
+    contents:
+      - dst: ./usr/share/lintian/overrides/aranet4-exporter
+        src: packaging/lintian-overrides
+        packager: deb
+        file_info:
+          owner: root
+          group: root
+          mode: 0644
+      - dst: /etc/default/aranet4-exporter
+        src: packaging/default.aranet4-exporter
+        type: config
+        file_info:
+          owner: root
+          group: root
+          mode: 0644
+      - dst: /usr/lib/systemd/system/aranet4-exporter.service
+        src: packaging/aranet4-exporter.service
+        file_info:
+          owner: root
+          group: root
+          mode: 0644
+    scripts:
+      postinstall: packaging/postinst.sh
+      postremove: packaging/postrm.sh
+      preremove: packaging/prerm.sh
+
+
